@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
-from backend.src.core.config import settings
+from src.core.config import settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -14,9 +14,9 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Import all models here for Alembic autogenerate
-from backend.src.db.base import TimestampMixin
-from backend.src.models.user import User  # Will be created in Phase 3
-from backend.src.models.task import Task  # Will be created in Phase 4
+from src.db.base import TimestampMixin
+from src.models.user import User
+from src.models.task import Task
 
 # Import SQLModel to get metadata
 from sqlmodel import SQLModel
