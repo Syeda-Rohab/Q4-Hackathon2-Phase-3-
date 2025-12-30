@@ -22,17 +22,24 @@ async def get_current_user(
     """Extract and verify JWT token, return current user"""
     try:
         token = credentials.credentials
+        print(f"DEBUG: Received token: {token[:50]}...")  # Debug log
         payload = verify_token(token)
-        user_id: int = payload.get("sub")
-        if user_id is None:
+        print(f"DEBUG: Token payload: {payload}")  # Debug log
+        user_id_raw = payload.get("sub")
+        if user_id_raw is None:
+            print("DEBUG: No 'sub' found in payload")  # Debug log
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid authentication credentials"
+                detail="Invalid authentication credentials - missing user ID"
             )
-    except ValueError:
+        # Convert to int in case JWT decodes it as string
+        user_id = int(user_id_raw)
+        print(f"DEBUG: User ID extracted: {user_id}")  # Debug log
+    except (ValueError, TypeError) as e:
+        print(f"DEBUG: Error in get_current_user: {str(e)}")  # Debug log
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials"
+            detail=f"Invalid authentication credentials - {str(e)}"
         )
 
     # Import here to avoid circular dependency

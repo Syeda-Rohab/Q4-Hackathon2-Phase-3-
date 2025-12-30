@@ -32,7 +32,7 @@ class TokenResponse(BaseModel):
 async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)):
     """Register a new user"""
     user = await register_user(db, user_data.email, user_data.password)
-    access_token = create_access_token(data={"sub": user.id})
+    access_token = create_access_token(data={"sub": str(user.id)})  # Convert to string!
     return TokenResponse(
         id=user.id,
         email=user.email,
@@ -49,7 +49,7 @@ async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password"
         )
-    access_token = create_access_token(data={"sub": user.id})
+    access_token = create_access_token(data={"sub": str(user.id)})  # Convert to string!
     return TokenResponse(
         id=user.id,
         email=user.email,

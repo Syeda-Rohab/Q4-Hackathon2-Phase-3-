@@ -39,9 +39,13 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
 def verify_token(token: str) -> dict:
     """Decode and verify a JWT token"""
     try:
+        print(f"DEBUG verify_token: JWT_SECRET_KEY = {settings.JWT_SECRET_KEY[:20]}...")
+        print(f"DEBUG verify_token: JWT_ALGORITHM = {settings.JWT_ALGORITHM}")
         payload = jwt.decode(
             token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
         )
+        print(f"DEBUG verify_token: Successfully decoded payload = {payload}")
         return payload
-    except JWTError:
+    except JWTError as e:
+        print(f"DEBUG verify_token: JWTError - {type(e).__name__}: {str(e)}")
         raise ValueError("Invalid token")
