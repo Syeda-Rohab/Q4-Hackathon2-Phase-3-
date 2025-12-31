@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
-  title: "Todo App - Phase II",
-  description: "Multi-user todo application with authentication",
+  title: "Todo App - Phase III - AI Powered",
+  description: "AI-powered task management with chat assistant and voice commands",
 };
 
 export default function RootLayout({
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   );
 }
