@@ -12,10 +12,9 @@ export default function ThemeToggle() {
       className={`
         relative w-16 h-8 rounded-full p-1 transition-all duration-300
         ${theme === 'dark'
-          ? 'bg-gradient-to-r from-purple-600 to-blue-600'
-          : 'bg-gradient-to-r from-yellow-400 to-orange-400'
+          ? 'bg-gradient-to-r from-blue-900 to-blue-800 border-2 border-blue-700/50'
+          : 'bg-gradient-to-r from-yellow-400 to-orange-400 border-2 border-yellow-600/50'
         }
-        hover:scale-105 active:scale-95
         shadow-lg
       `}
       whileHover={{ scale: 1.05 }}
@@ -30,7 +29,7 @@ export default function ThemeToggle() {
         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       >
         {theme === 'dark' ? (
-          <svg className="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-4 h-4 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
           </svg>
         ) : (
