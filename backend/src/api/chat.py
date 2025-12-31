@@ -60,27 +60,22 @@ async def send_message(
         if intent == "create_task" and task_title:
             # Create new task
             new_task = await task_service.create_task(
+                db=db,
                 user_id=current_user.id,
                 title=task_title,
-                description=task_description,
-                due_date=due_date,
-                priority=priority,
-                db=db
+                description=task_description
             )
             task_id = new_task.id
-            response_text = f"✅ Created task '{task_title}' successfully!"
-            if due_date:
-                response_text += f" Due date: {due_date.strftime('%Y-%m-%d')}"
+            response_text = f"Created task '{task_title}' successfully!"
 
         elif intent == "list_tasks":
             # Get all tasks
-            tasks = await task_service.get_user_tasks(current_user.id, db)
+            tasks = await task_service.get_user_tasks(db, current_user.id)
             if not tasks:
                 response_text = "You don't have any tasks yet. Create one by saying 'Add task: [task name]'"
             else:
                 task_list = "\n".join([
-                    f"{i+1}. {'✅' if t.is_completed else '⏳'} {t.title}" +
-                    (f" (Due: {t.due_date.strftime('%Y-%m-%d')})" if t.due_date else "")
+                    f"{i+1}. [{'DONE' if t.status == 'Complete' else 'TODO'}] {t.title}"
                     for i, t in enumerate(tasks)
                 ])
                 response_text = f"Here are your {len(tasks)} tasks:\n\n{task_list}"
@@ -90,41 +85,41 @@ async def send_message(
             if task_id_str:
                 try:
                     target_task_id = int(task_id_str)
-                    tasks = await task_service.get_user_tasks(current_user.id, db)
+                    tasks = await task_service.get_user_tasks(db, current_user.id)
                     if 0 < target_task_id <= len(tasks):
                         target_task = tasks[target_task_id - 1]
                         updated_task = await task_service.update_task(
+                            db=db,
                             task_id=target_task.id,
                             user_id=current_user.id,
                             title=task_title,
-                            description=task_description,
-                            db=db
+                            description=task_description
                         )
-                        response_text = f"✅ Updated task to '{task_title}'"
+                        response_text = f"Updated task to '{task_title}'"
                         task_id = updated_task.id
                     else:
-                        response_text = f"❌ Task number {target_task_id} not found"
+                        response_text = f"Task number {target_task_id} not found"
                 except ValueError:
-                    response_text = "❌ Invalid task number"
+                    response_text = "Invalid task number"
             else:
-                response_text = "❌ Please specify which task to update (e.g., 'Update task 1 to...')"
+                response_text = "Please specify which task to update (e.g., 'Update task 1 to...')"
 
         elif intent == "delete_task":
             # Delete task
             if task_id_str:
                 try:
                     target_task_id = int(task_id_str)
-                    tasks = await task_service.get_user_tasks(current_user.id, db)
+                    tasks = await task_service.get_user_tasks(db, current_user.id)
                     if 0 < target_task_id <= len(tasks):
                         target_task = tasks[target_task_id - 1]
-                        await task_service.delete_task(target_task.id, current_user.id, db)
-                        response_text = f"✅ Deleted task '{target_task.title}'"
+                        await task_service.delete_task(db, target_task.id, current_user.id)
+                        response_text = f"Deleted task '{target_task.title}'"
                     else:
-                        response_text = f"❌ Task number {target_task_id} not found"
+                        response_text = f"Task number {target_task_id} not found"
                 except ValueError:
-                    response_text = "❌ Invalid task number"
+                    response_text = "Invalid task number"
             else:
-                response_text = "❌ Please specify which task to delete (e.g., 'Delete task 1')"
+                response_text = "Please specify which task to delete (e.g., 'Delete task 1')"
 
         elif intent == "mark_complete" or intent == "mark_incomplete":
             # Toggle task completion
@@ -132,23 +127,23 @@ async def send_message(
             if task_id_str:
                 try:
                     target_task_id = int(task_id_str)
-                    tasks = await task_service.get_user_tasks(current_user.id, db)
+                    tasks = await task_service.get_user_tasks(db, current_user.id)
                     if 0 < target_task_id <= len(tasks):
                         target_task = tasks[target_task_id - 1]
-                        await task_service.toggle_task_completion(
+                        await task_service.toggle_task_status(
+                            db,
                             target_task.id,
-                            current_user.id,
-                            db
+                            current_user.id
                         )
                         status = "complete" if is_completed else "incomplete"
-                        response_text = f"✅ Marked '{target_task.title}' as {status}"
+                        response_text = f"Marked '{target_task.title}' as {status}"
                         task_id = target_task.id
                     else:
-                        response_text = f"❌ Task number {target_task_id} not found"
+                        response_text = f"Task number {target_task_id} not found"
                 except ValueError:
-                    response_text = "❌ Invalid task number"
+                    response_text = "Invalid task number"
             else:
-                response_text = "❌ Please specify which task (e.g., 'Mark task 1 as done')"
+                response_text = "Please specify which task (e.g., 'Mark task 1 as done')"
 
         else:
             # General response
@@ -166,7 +161,7 @@ async def send_message(
             confidence=ai_result.get("confidence", 0.0)
         )
         db.add(chat_message)
-        db.commit()
+        await db.commit()
 
         return ChatResponse(
             response=response_text,
@@ -193,7 +188,8 @@ async def get_chat_history(
         .order_by(ChatMessage.created_at.desc())
         .limit(limit)
     )
-    messages = db.exec(statement).all()
+    result = await db.execute(statement)
+    messages = result.scalars().all()
 
     return {
         "messages": [
@@ -216,11 +212,12 @@ async def clear_chat_history(
 ):
     """Clear all chat history for the current user"""
     statement = select(ChatMessage).where(ChatMessage.user_id == current_user.id)
-    messages = db.exec(statement).all()
+    result = await db.execute(statement)
+    messages = result.scalars().all()
 
     for msg in messages:
-        db.delete(msg)
+        await db.delete(msg)
 
-    db.commit()
+    await db.commit()
 
     return {"message": f"Cleared {len(messages)} chat messages"}

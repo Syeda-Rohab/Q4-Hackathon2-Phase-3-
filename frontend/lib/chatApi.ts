@@ -35,7 +35,7 @@ export interface ChatHistoryResponse {
  */
 export async function sendChatMessage(message: string): Promise<ChatResponse> {
   try {
-    const response = await apiClient.post<ChatResponse>('/chat/message', { message });
+    const response = await apiClient.post<ChatResponse>('/api/chat/message', { message });
     return response.data;
   } catch (error: any) {
     console.error('Chat API error:', error);
@@ -48,7 +48,7 @@ export async function sendChatMessage(message: string): Promise<ChatResponse> {
  */
 export async function getChatHistory(limit: number = 50): Promise<ChatMessage[]> {
   try {
-    const response = await apiClient.get<ChatHistoryResponse>('/chat/history', {
+    const response = await apiClient.get<ChatHistoryResponse>('/api/chat/history', {
       params: { limit }
     });
 
@@ -79,7 +79,7 @@ export async function getChatHistory(limit: number = 50): Promise<ChatMessage[]>
  */
 export async function clearChatHistory(): Promise<void> {
   try {
-    await apiClient.delete('/chat/history');
+    await apiClient.delete('/api/chat/history');
   } catch (error: any) {
     console.error('Clear history error:', error);
     throw new Error('Failed to clear chat history');

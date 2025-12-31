@@ -1,16 +1,22 @@
 """
 AI Service for natural language processing and chat functionality
 Uses OpenAI GPT-4o-mini for intent detection and response generation
+OR uses local pattern matching (FREE - no API key needed)
 """
 
 import json
+import re
 from typing import Dict, Any, Optional
-from openai import OpenAI
 from src.core.config import settings
 
-
-# Initialize OpenAI client
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+# Initialize OpenAI client only if API key is valid
+client = None
+if settings.OPENAI_API_KEY and settings.OPENAI_API_KEY != "sk-proj-your-openai-key-here":
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    except Exception:
+        client = None
 
 
 # System prompt for the AI assistant
@@ -66,9 +72,164 @@ Always extract dates, priorities, and other details from the message.
 """
 
 
+def process_message_locally(message: str) -> Dict[str, Any]:
+    """
+    FREE Local AI - Process message using pattern matching (no API needed!)
+
+    Args:
+        message: User's input message
+
+    Returns:
+        Dictionary containing intent, extracted data, and response
+    """
+    msg = message.lower().strip()
+    result = {
+        "intent": "general",
+        "confidence": 0.8,
+        "response": "I can help you manage tasks! Try: 'add task', 'show tasks', or 'delete task 1'"
+    }
+
+    # DELETE TASK patterns (check FIRST before create patterns)
+    delete_patterns = [
+        r'\b(delete|remove|clear)\s+(?:task\s+)?(\d+|first|last|all)',
+        r'\b(delete|remove)\s+(.+?)\s*(?:task)?$',
+    ]
+
+    for pattern in delete_patterns:
+        match = re.search(pattern, msg)
+        if match:
+            task_id = match.group(2) if len(match.groups()) >= 2 else match.group(1)
+            result = {
+                "intent": "delete_task",
+                "confidence": 0.85,
+                "task_id": task_id.strip(),
+                "response": f"I'll delete task {task_id} for you."
+            }
+            return result
+
+    # MARK COMPLETE patterns (check BEFORE create patterns)
+    complete_patterns = [
+        r'\b(mark|set|make)\s+(?:task\s+)?(\d+|first|last)\s+(?:as\s+)?(done|complete|completed|finished)',
+        r'\b(complete|finish|done)\s+(?:task\s+)?(\d+|first|last)',
+    ]
+
+    for pattern in complete_patterns:
+        match = re.search(pattern, msg)
+        if match:
+            task_id = match.group(2) if len(match.groups()) >= 2 else match.group(1)
+            result = {
+                "intent": "mark_complete",
+                "confidence": 0.9,
+                "task_id": task_id.strip(),
+                "response": f"I'll mark task {task_id} as complete!"
+            }
+            return result
+
+    # UPDATE TASK patterns (check BEFORE create patterns)
+    update_patterns = [
+        r'\b(update|change|edit|modify)\s+(?:task\s+)?(\d+|first|last)\s+(?:to\s+)?(.+)',
+        r'\b(rename)\s+(?:task\s+)?(\d+|first|last)\s+(?:to\s+)?(.+)',
+    ]
+
+    for pattern in update_patterns:
+        match = re.search(pattern, msg)
+        if match:
+            task_id = match.group(2)
+            new_title = match.group(3).strip()
+            result = {
+                "intent": "update_task",
+                "confidence": 0.85,
+                "task_id": task_id.strip(),
+                "task_title": new_title.capitalize(),
+                "response": f"I'll update task {task_id} to '{new_title}'!"
+            }
+            return result
+
+    # LIST TASKS patterns (check BEFORE create patterns)
+    list_patterns = [
+        r'\b(show|list|display|get|view)\s+(my\s+)?(tasks|todos|all)',
+        r'\bwhat\s+(are\s+)?my\s+(tasks|todos)',
+        r'\b(tasks|todos)\s*\??$',
+    ]
+
+    for pattern in list_patterns:
+        if re.search(pattern, msg):
+            result = {
+                "intent": "list_tasks",
+                "confidence": 0.95,
+                "response": "Here are your tasks:"
+            }
+
+            # Check for filters
+            if re.search(r'\b(completed|done|finished)\b', msg):
+                result["filter"] = "completed"
+            elif re.search(r'\b(pending|incomplete|active)\b', msg):
+                result["filter"] = "pending"
+
+            return result
+
+    # CREATE TASK patterns (check LAST to avoid false positives)
+    create_patterns = [
+        r"(?:add|create|new|make)\s+(?:task|todo)?\s*:?\s*(.+)",
+        r"(?:add|create|new|make)\s+(.+?)\s+(?:task|todo)",
+    ]
+
+    for pattern in create_patterns:
+        match = re.search(pattern, msg, re.IGNORECASE)
+        if match:
+            task_title = match.group(1).strip()
+            # Remove common words
+            task_title = re.sub(r'\b(task|todo|for|to)\b', '', task_title, flags=re.IGNORECASE).strip()
+
+            if task_title:
+                result = {
+                    "intent": "create_task",
+                    "confidence": 0.9,
+                    "task_title": task_title.capitalize(),
+                    "response": f"I'll create '{task_title}' for you!"
+                }
+
+                # Check for priority
+                if re.search(r'\b(urgent|important|high priority)\b', msg):
+                    result["priority"] = "high"
+                elif re.search(r'\b(low priority)\b', msg):
+                    result["priority"] = "low"
+                else:
+                    result["priority"] = "medium"
+
+                # Check for dates
+                if re.search(r'\b(today)\b', msg):
+                    result["due_date"] = "today"
+                elif re.search(r'\b(tomorrow)\b', msg):
+                    result["due_date"] = "tomorrow"
+                elif re.search(r'\b(next week)\b', msg):
+                    result["due_date"] = "next week"
+
+                return result
+
+    # HELP patterns
+    if re.search(r'\b(help|commands|what can you do|how to use)\b', msg):
+        result = {
+            "intent": "general",
+            "confidence": 1.0,
+            "response": """I can help you manage tasks! Try these commands:
+
+* Create: "Add task buy groceries"
+* List: "Show my tasks" or "Show completed tasks"
+* Complete: "Mark task 1 as done"
+* Update: "Change task 1 to buy milk"
+* Delete: "Delete task 1"
+
+Just chat naturally and I'll understand!"""
+        }
+        return result
+
+    return result
+
+
 async def process_message(message: str, user_id: int) -> Dict[str, Any]:
     """
-    Process user message with OpenAI and extract intent + entities
+    Process user message with OpenAI OR local pattern matching
 
     Args:
         message: User's input message
@@ -77,6 +238,11 @@ async def process_message(message: str, user_id: int) -> Dict[str, Any]:
     Returns:
         Dictionary containing intent, extracted data, and response
     """
+    # If OpenAI client is not available, use local processing (FREE!)
+    if not client or not settings.ENABLE_AI_CHAT:
+        print("Using FREE Local AI (pattern matching)")
+        return process_message_locally(message)
+
     try:
         # Call OpenAI API
         response = client.chat.completions.create(
@@ -111,12 +277,9 @@ async def process_message(message: str, user_id: int) -> Dict[str, Any]:
         return result
 
     except Exception as e:
-        print(f"AI Service Error: {e}")
-        return {
-            "intent": "general",
-            "confidence": 0.0,
-            "response": f"Sorry, I encountered an error: {str(e)}"
-        }
+        print(f"WARNING: OpenAI Error: {e}, falling back to local AI")
+        # Fallback to local processing if OpenAI fails
+        return process_message_locally(message)
 
 
 async def generate_response(
