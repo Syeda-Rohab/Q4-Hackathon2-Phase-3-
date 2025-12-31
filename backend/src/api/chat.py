@@ -5,10 +5,10 @@ Handles natural language chat interactions
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
+from sqlmodel.ext.asyncio.session import AsyncSession
 from datetime import datetime
 
-from src.db.session import get_db
-from src.api.deps import get_current_user
+from src.api.deps import get_db, get_current_user
 from src.models.user import User
 from src.models.task import Task
 from src.models.chat import ChatMessage, ChatRequest, ChatResponse
@@ -22,7 +22,7 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 async def send_message(
     request: ChatRequest,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """
     Process user message with AI and execute appropriate action
@@ -184,7 +184,7 @@ async def send_message(
 async def get_chat_history(
     limit: int = 50,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """Get recent chat history for the current user"""
     statement = (
@@ -212,7 +212,7 @@ async def get_chat_history(
 @router.delete("/history")
 async def clear_chat_history(
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: AsyncSession = Depends(get_db)
 ):
     """Clear all chat history for the current user"""
     statement = select(ChatMessage).where(ChatMessage.user_id == current_user.id)

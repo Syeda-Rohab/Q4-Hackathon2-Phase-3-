@@ -27,7 +27,7 @@ class Suggestion(SQLModel, table=True):
     task_id: Optional[int] = Field(foreign_key="tasks.id", default=None)
     suggestion_type: str = Field(nullable=False)  # priority, deadline, group, reminder
     content: str = Field(nullable=False)
-    metadata: Optional[str] = Field(default=None)  # JSON string
+    extra_data: Optional[str] = Field(default=None)  # JSON string (renamed from metadata)
     status: str = Field(default="pending")  # pending, accepted, dismissed
     created_at: datetime = Field(default_factory=datetime.utcnow)
 

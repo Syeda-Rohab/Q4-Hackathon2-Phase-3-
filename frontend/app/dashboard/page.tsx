@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { apiClient } from '@/lib/api';
 import { removeToken } from '@/lib/auth';
+import ChatWidget from '@/components/ChatWidget';
 
 interface Task {
   id: number;
@@ -37,6 +38,16 @@ export default function DashboardPage() {
       fetchTasks();
     };
     checkAuth();
+
+    // Listen for task updates from chat
+    const handleTaskUpdate = () => {
+      fetchTasks();
+    };
+    window.addEventListener('taskUpdated', handleTaskUpdate);
+
+    return () => {
+      window.removeEventListener('taskUpdated', handleTaskUpdate);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -303,9 +314,14 @@ export default function DashboardPage() {
           <p className="text-gray-400">
             Built with{' '}
             <span className="text-indigo-500 font-semibold">D/O : Syed Rashid Ali</span>
+            {' • '}
+            <span className="text-purple-500 font-semibold">Phase III: AI-Powered</span>
           </p>
         </div>
       </footer>
+
+      {/* AI Chat Widget */}
+      <ChatWidget />
     </div>
   );
 }

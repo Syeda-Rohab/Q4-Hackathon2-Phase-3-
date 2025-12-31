@@ -44,7 +44,7 @@ def upgrade() -> None:
         sa.Column('task_id', sa.Integer(), nullable=True),
         sa.Column('suggestion_type', sa.String(length=50), nullable=False),
         sa.Column('content', sa.Text(), nullable=False),
-        sa.Column('metadata', sa.Text(), nullable=True),
+        sa.Column('extra_data', sa.Text(), nullable=True),
         sa.Column('status', sa.String(length=20), nullable=False, server_default='pending'),
         sa.Column('created_at', sa.DateTime(), nullable=False, server_default=sa.text('CURRENT_TIMESTAMP')),
         sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
