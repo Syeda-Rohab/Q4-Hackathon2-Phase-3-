@@ -191,7 +191,7 @@ export default function DashboardPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(15, 40, 90, 0.2) 0%, rgba(15, 40, 90, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(5, 15, 35, 0.12) 0%, rgba(5, 15, 35, 0) 70%)'
               : 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%)',
             filter: 'blur(80px)',
             top: '-200px',
@@ -204,7 +204,7 @@ export default function DashboardPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(20, 50, 100, 0.15) 0%, rgba(20, 50, 100, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(8, 20, 45, 0.1) 0%, rgba(8, 20, 45, 0) 70%)'
               : 'radial-gradient(circle, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0) 70%)',
             filter: 'blur(80px)',
             bottom: '-200px',
@@ -218,7 +218,7 @@ export default function DashboardPage() {
       {/* Navbar */}
       <nav className={`relative z-50 border-b backdrop-blur-2xl ${
         theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black'
+          ? 'border-[#0a1929]/50 bg-black/70'
           : 'border-blue-200/50 bg-white/70'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -562,17 +562,17 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className={`relative z-10 border-t backdrop-blur-2xl py-12 mt-32 ${
         theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black'
+          ? 'border-[#0a1929]/50 bg-black/70'
           : 'border-blue-200/50 bg-white/70'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className={`text-xl mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>
+          <p className={`text-xl mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-gray-700'}`}>
             Build with D/O :{' '}
             <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent font-black text-2xl">
               Syed Rashid Ali
             </span>
           </p>
-          <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-blue-600/60'}`}>Phase III • AI-Powered Task Management</p>
+          <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-blue-400/60' : 'text-blue-600/60'}`}>Phase III • AI-Powered Task Management</p>
         </div>
       </footer>
 
