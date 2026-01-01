@@ -145,11 +145,11 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className={`min-h-screen relative overflow-hidden flex items-center justify-center ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+      <div className={`min-h-screen relative overflow-hidden flex items-center justify-center ${theme === 'dark' ? 'bg-[#001429]' : 'bg-white'}`}>
         {/* Background */}
         <div className={`fixed inset-0 ${
           theme === 'dark'
-            ? 'bg-gradient-to-br from-[#000208] via-[#00050f] to-black opacity-95'
+            ? 'bg-gradient-to-br from-[#001a3d] via-[#001429] to-[#000a1a] opacity-95'
             : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
         }`} />
 
@@ -158,12 +158,12 @@ export default function DashboardPage() {
             className={`w-20 h-20 mx-auto mb-6 border-4 rounded-full ${
               theme === 'dark'
                 ? 'border-blue-900 border-t-blue-700'
-                : 'border-blue-300 border-t-blue-600'
+                : 'border-blue-300 border-t-orange-600'
             }`}
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           />
-          <h2 className="text-3xl font-black bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-black bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
             Loading Dashboard...
           </h2>
         </div>
@@ -172,16 +172,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className={`min-h-screen relative overflow-hidden ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+    <div className={`min-h-screen relative overflow-hidden ${theme === 'dark' ? 'bg-[#001429]' : 'bg-white'}`}>
       {/* Background */}
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-gradient-to-br from-[#000208] via-[#00050f] to-black opacity-95'
+          ? 'bg-gradient-to-br from-[#001a3d] via-[#001429] to-[#000a1a] opacity-95'
           : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
       }`} />
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-[linear-gradient(to_right,#0a1929_1px,transparent_1px),linear-gradient(to_bottom,#0a1929_1px,transparent_1px)] bg-[size:40px_40px]'
+          ? 'bg-[linear-gradient(to_right,#1a3557_1px,transparent_1px),linear-gradient(to_bottom,#1a3557_1px,transparent_1px)] bg-[size:40px_40px]'
           : 'bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] bg-[size:40px_40px]'
       }`} />
 
@@ -191,7 +191,7 @@ export default function DashboardPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(5, 15, 35, 0.12) 0%, rgba(5, 15, 35, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(26, 53, 87, 0.12) 0%, rgba(26, 53, 87, 0) 70%)'
               : 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%)',
             filter: 'blur(80px)',
             top: '-200px',
@@ -204,7 +204,7 @@ export default function DashboardPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(8, 20, 45, 0.1) 0%, rgba(8, 20, 45, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(30, 64, 105, 0.1) 0%, rgba(30, 64, 105, 0) 70%)'
               : 'radial-gradient(circle, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0) 70%)',
             filter: 'blur(80px)',
             bottom: '-200px',
@@ -218,8 +218,8 @@ export default function DashboardPage() {
       {/* Navbar */}
       <nav className={`relative z-50 border-b backdrop-blur-2xl ${
         theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black/70'
-          : 'border-blue-200/50 bg-white/70'
+          ? 'border-gray-800 bg-[#001429]'
+          : 'border-gray-800 bg-black'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -237,11 +237,11 @@ export default function DashboardPage() {
                 }`} />
                 <div className={`relative px-8 py-4 rounded-2xl border-2 ${
                   theme === 'dark'
-                    ? 'bg-gradient-to-br from-[#000510] to-[#00080f] border-blue-900/40'
+                    ? 'bg-gradient-to-br from-[#001a3d] to-[#001429] border-blue-900/40'
                     : 'bg-gradient-to-br from-white to-blue-50 border-blue-400/40'
                 }`}>
                   <h1 className="text-3xl font-black tracking-tight">
-                    <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
                       TODO
                     </span>
                     <span className={`ml-3 text-2xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI</span>
@@ -256,7 +256,7 @@ export default function DashboardPage() {
               >
                 <div className={`border-2 rounded-xl p-3 transition-all ${
                   theme === 'dark'
-                    ? 'bg-[#00080f]/60 group-hover:bg-[#000c15]/80 border-blue-900/40 group-hover:border-blue-800/60'
+                    ? 'bg-[#001a3d]/60 group-hover:bg-[#002451]/80 border-blue-900/40 group-hover:border-blue-800/60'
                     : 'bg-white/60 group-hover:bg-blue-50/80 border-blue-300/40 group-hover:border-blue-500/60'
                 }`}>
                   <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -329,14 +329,14 @@ export default function DashboardPage() {
 
           <div className={`relative p-8 rounded-3xl border-2 backdrop-blur-2xl ${
             theme === 'dark'
-              ? 'bg-gradient-to-br from-[#00080f]/90 to-[#000510]/90 border-blue-900/40'
+              ? 'bg-gradient-to-br from-[#001a3d]/90 to-[#001429]/90 border-blue-900/40'
               : 'bg-gradient-to-br from-white/90 to-blue-50/90 border-blue-400/40'
           }`}>
             <div className="flex items-center mb-6">
               <div className={`p-3 rounded-xl mr-4 ${
                 theme === 'dark'
                   ? 'bg-gradient-to-r from-blue-900 to-blue-800'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-500'
+                  : 'bg-gradient-to-r from-blue-600 to-orange-500'
               }`}>
                 <svg className={`h-6 w-6 ${theme === 'dark' ? 'text-blue-200' : 'text-white'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -352,7 +352,7 @@ export default function DashboardPage() {
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   className={`w-full px-6 py-4 border-2 rounded-xl focus:outline-none transition-all backdrop-blur-sm font-medium ${
                     theme === 'dark'
-                      ? 'bg-[#00080f]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#000c15]/90'
+                      ? 'bg-[#001a3d]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#002451]/90'
                       : 'bg-white/80 border-blue-300/40 text-gray-900 placeholder-gray-400 focus:border-blue-500/60 focus:bg-white'
                   }`}
                   placeholder="What needs to be done?"
@@ -365,7 +365,7 @@ export default function DashboardPage() {
                   onChange={(e) => setNewTaskDescription(e.target.value)}
                   className={`w-full px-6 py-4 border-2 rounded-xl focus:outline-none transition-all backdrop-blur-sm resize-none font-medium ${
                     theme === 'dark'
-                      ? 'bg-[#00080f]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#000c15]/90'
+                      ? 'bg-[#001a3d]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#002451]/90'
                       : 'bg-white/80 border-blue-300/40 text-gray-900 placeholder-gray-400 focus:border-blue-500/60 focus:bg-white'
                   }`}
                   placeholder="Add some details (optional)..."
@@ -411,14 +411,14 @@ export default function DashboardPage() {
 
           <div className={`relative p-8 rounded-3xl border-2 backdrop-blur-2xl ${
             theme === 'dark'
-              ? 'bg-gradient-to-br from-[#00080f]/90 to-[#000510]/90 border-blue-900/40'
+              ? 'bg-gradient-to-br from-[#001a3d]/90 to-[#001429]/90 border-blue-900/40'
               : 'bg-gradient-to-br from-white/90 to-blue-50/90 border-blue-400/40'
           }`}>
             <div className="flex items-center mb-6">
               <div className={`p-3 rounded-xl mr-4 ${
                 theme === 'dark'
                   ? 'bg-gradient-to-r from-blue-900 to-blue-800'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-500'
+                  : 'bg-gradient-to-r from-blue-600 to-orange-500'
               }`}>
                 <svg className={`h-6 w-6 ${theme === 'dark' ? 'text-blue-200' : 'text-white'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -449,7 +449,7 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="bg-[#00080f]/80 p-6 rounded-2xl border-2 border-blue-900/40 hover:border-blue-800/60 transition-all backdrop-blur-sm shadow-lg hover:shadow-blue-900/20"
+                    className="bg-[#001a3d]/80 p-6 rounded-2xl border-2 border-blue-900/40 hover:border-blue-800/60 transition-all backdrop-blur-sm shadow-lg hover:shadow-blue-900/20"
                   >
                     {editingTaskId === task.id ? (
                       // Edit Mode
@@ -458,14 +458,14 @@ export default function DashboardPage() {
                           type="text"
                           value={editTitle}
                           onChange={(e) => setEditTitle(e.target.value)}
-                          className="w-full px-5 py-4 bg-[#000510]/80 border-2 border-blue-900/40 rounded-xl text-white placeholder-blue-300/30 focus:outline-none focus:border-blue-700/60 focus:ring-2 focus:ring-blue-700/50 transition-all font-medium"
+                          className="w-full px-5 py-4 bg-[#001a3d]/80 border-2 border-blue-900/40 rounded-xl text-white placeholder-blue-300/30 focus:outline-none focus:border-blue-700/60 focus:ring-2 focus:ring-orange-700/50 transition-all font-medium"
                           placeholder="Task title..."
                           autoFocus
                         />
                         <textarea
                           value={editDescription}
                           onChange={(e) => setEditDescription(e.target.value)}
-                          className="w-full px-5 py-4 bg-[#000510]/80 border-2 border-blue-900/40 rounded-xl text-white placeholder-blue-300/30 focus:outline-none focus:border-blue-700/60 focus:ring-2 focus:ring-blue-700/50 transition-all resize-none font-medium"
+                          className="w-full px-5 py-4 bg-[#001a3d]/80 border-2 border-blue-900/40 rounded-xl text-white placeholder-blue-300/30 focus:outline-none focus:border-blue-700/60 focus:ring-2 focus:ring-orange-700/50 transition-all resize-none font-medium"
                           placeholder="Description (optional)..."
                           rows={3}
                         />
@@ -480,7 +480,7 @@ export default function DashboardPage() {
                           </motion.button>
                           <motion.button
                             onClick={handleCancelEdit}
-                            className="px-6 py-3 bg-[#00080f]/80 border-2 border-blue-900/40 text-white font-black rounded-xl hover:bg-[#000c15]/80 transition-all"
+                            className="px-6 py-3 bg-[#001a3d]/80 border-2 border-blue-900/40 text-white font-black rounded-xl hover:bg-[#002451]/80 transition-all"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -534,7 +534,7 @@ export default function DashboardPage() {
                           </motion.button>
                           <motion.button
                             onClick={() => handleStartEdit(task)}
-                            className="px-5 py-2.5 bg-gradient-to-r from-cyan-900 to-blue-900 text-white font-black rounded-xl hover:opacity-90 transition-all shadow-lg"
+                            className="px-5 py-2.5 bg-gradient-to-r from-blue-900 to-blue-800 text-white font-black rounded-xl hover:opacity-90 transition-all shadow-lg"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -562,13 +562,13 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className={`relative z-10 border-t backdrop-blur-2xl py-12 mt-32 ${
         theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black/70'
-          : 'border-blue-200/50 bg-white/70'
+          ? 'border-gray-800 bg-[#001429]'
+          : 'border-gray-800 bg-black'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className={`text-xl mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-gray-700'}`}>
             Build with D/O :{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent font-black text-2xl">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent font-black text-2xl">
               Syed Rashid Ali
             </span>
           </p>

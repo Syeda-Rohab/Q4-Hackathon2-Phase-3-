@@ -36,16 +36,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={`min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+    <div className={`min-h-screen relative overflow-hidden flex items-center justify-center py-12 px-4 ${theme === 'dark' ? 'bg-[#001429]' : 'bg-white'}`}>
       {/* Background */}
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-gradient-to-br from-[#000208] via-[#00050f] to-black opacity-95'
+          ? 'bg-gradient-to-br from-[#001a3d] via-[#001429] to-[#000a1a] opacity-95'
           : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
       }`} />
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-[linear-gradient(to_right,#0a1929_1px,transparent_1px),linear-gradient(to_bottom,#0a1929_1px,transparent_1px)] bg-[size:40px_40px]'
+          ? 'bg-[linear-gradient(to_right,#1a3557_1px,transparent_1px),linear-gradient(to_bottom,#1a3557_1px,transparent_1px)] bg-[size:40px_40px]'
           : 'bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] bg-[size:40px_40px]'
       }`} />
 
@@ -60,7 +60,7 @@ export default function RegisterPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(15, 40, 90, 0.2) 0%, rgba(15, 40, 90, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(26, 53, 87, 0.2) 0%, rgba(26, 53, 87, 0) 70%)'
               : 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%)',
             filter: 'blur(80px)',
             top: '-200px',
@@ -73,7 +73,7 @@ export default function RegisterPage() {
           className="absolute w-[600px] h-[600px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(20, 50, 100, 0.15) 0%, rgba(20, 50, 100, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(30, 64, 105, 0.15) 0%, rgba(30, 64, 105, 0) 70%)'
               : 'radial-gradient(circle, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0) 70%)',
             filter: 'blur(80px)',
             bottom: '-200px',
@@ -99,7 +99,7 @@ export default function RegisterPage() {
         >
           <div className={`border-2 rounded-xl px-5 py-3 transition-all ${
             theme === 'dark'
-              ? 'bg-[#00080f]/60 group-hover:bg-[#000c15]/80 border-blue-900/40 group-hover:border-blue-800/60'
+              ? 'bg-[#001a3d]/60 group-hover:bg-[#002451]/80 border-blue-900/40 group-hover:border-blue-800/60'
               : 'bg-white/60 group-hover:bg-blue-50/80 border-blue-300/40 group-hover:border-blue-500/60'
           }`}>
             <div className="flex items-center space-x-2">
@@ -121,7 +121,7 @@ export default function RegisterPage() {
 
           <div className={`relative p-10 rounded-3xl border-2 backdrop-blur-2xl ${
             theme === 'dark'
-              ? 'bg-gradient-to-br from-[#00080f]/90 to-[#000510]/90 border-blue-900/40'
+              ? 'bg-gradient-to-br from-[#001a3d]/90 to-[#001429]/90 border-blue-900/40'
               : 'bg-gradient-to-br from-white/90 to-blue-50/90 border-blue-400/40'
           }`}>
             {/* Logo & Title */}
@@ -134,11 +134,11 @@ export default function RegisterPage() {
                 }`} />
                 <div className={`relative px-8 py-4 rounded-2xl border-2 ${
                   theme === 'dark'
-                    ? 'bg-gradient-to-br from-[#000510] to-[#00080f] border-blue-900/40'
+                    ? 'bg-gradient-to-br from-[#001a3d] to-[#001429] border-blue-900/40'
                     : 'bg-gradient-to-br from-white to-blue-50 border-blue-400/40'
                 }`}>
                   <h1 className="text-4xl font-black tracking-tight">
-                    <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
                       TODO
                     </span>
                     <span className={`ml-3 text-3xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI</span>
@@ -185,7 +185,7 @@ export default function RegisterPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     className={`relative w-full px-6 py-4 border-2 rounded-xl focus:outline-none transition-all backdrop-blur-sm font-medium ${
                       theme === 'dark'
-                        ? 'bg-[#00080f]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#000c15]/90'
+                        ? 'bg-[#001a3d]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#002451]/90'
                         : 'bg-white/80 border-blue-300/40 text-gray-900 placeholder-gray-400 focus:border-blue-500/60 focus:bg-white'
                     }`}
                     placeholder="you@example.com"
@@ -213,7 +213,7 @@ export default function RegisterPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     className={`relative w-full px-6 py-4 border-2 rounded-xl focus:outline-none transition-all backdrop-blur-sm font-medium ${
                       theme === 'dark'
-                        ? 'bg-[#00080f]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#000c15]/90'
+                        ? 'bg-[#001a3d]/80 border-blue-900/40 text-white placeholder-blue-300/30 focus:border-blue-700/60 focus:bg-[#002451]/90'
                         : 'bg-white/80 border-blue-300/40 text-gray-900 placeholder-gray-400 focus:border-blue-500/60 focus:bg-white'
                     }`}
                     placeholder="••••••••"

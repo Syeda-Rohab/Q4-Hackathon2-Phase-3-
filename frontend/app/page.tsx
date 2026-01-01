@@ -9,18 +9,18 @@ export default function HomePage() {
   const { theme } = useTheme();
 
   return (
-    <div className={`min-h-screen relative overflow-hidden ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+    <div className={`min-h-screen relative overflow-hidden ${theme === 'dark' ? 'bg-[#001429]' : 'bg-white'}`}>
       {/* Background Overlay */}
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-gradient-to-br from-[#000208] via-[#00050f] to-black opacity-95'
+          ? 'bg-gradient-to-br from-[#001a3d] via-[#001429] to-[#000a1a] opacity-95'
           : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
       }`} />
 
       {/* Animated Grid */}
       <div className={`fixed inset-0 ${
         theme === 'dark'
-          ? 'bg-[linear-gradient(to_right,#0a1929_1px,transparent_1px),linear-gradient(to_bottom,#0a1929_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]'
+          ? 'bg-[linear-gradient(to_right,#1a3557_1px,transparent_1px),linear-gradient(to_bottom,#1a3557_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]'
           : 'bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]'
       }`} />
 
@@ -30,7 +30,7 @@ export default function HomePage() {
           className="absolute w-[1000px] h-[1000px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(5, 15, 35, 0.15) 0%, rgba(5, 15, 35, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(26, 53, 87, 0.15) 0%, rgba(26, 53, 87, 0) 70%)'
               : 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%)',
             filter: 'blur(100px)',
             top: '-500px',
@@ -43,7 +43,7 @@ export default function HomePage() {
           className="absolute w-[900px] h-[900px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(8, 20, 45, 0.12) 0%, rgba(8, 20, 45, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(30, 64, 105, 0.12) 0%, rgba(30, 64, 105, 0) 70%)'
               : 'radial-gradient(circle, rgba(147, 197, 253, 0.2) 0%, rgba(147, 197, 253, 0) 70%)',
             filter: 'blur(100px)',
             bottom: '-400px',
@@ -56,7 +56,7 @@ export default function HomePage() {
           className="absolute w-[800px] h-[800px] rounded-full"
           style={{
             background: theme === 'dark'
-              ? 'radial-gradient(circle, rgba(3, 10, 25, 0.1) 0%, rgba(3, 10, 25, 0) 70%)'
+              ? 'radial-gradient(circle, rgba(20, 45, 75, 0.1) 0%, rgba(20, 45, 75, 0) 70%)'
               : 'radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, rgba(96, 165, 250, 0) 70%)',
             filter: 'blur(90px)',
             top: '40%',
@@ -68,11 +68,7 @@ export default function HomePage() {
       </div>
 
       {/* Navbar */}
-      <nav className={`relative z-50 border-b backdrop-blur-2xl ${
-        theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black/70'
-          : 'border-blue-200/50 bg-white/70'
-      }`}>
+      <nav className="relative z-50 border-b backdrop-blur-2xl border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-24">
             <motion.div
@@ -83,16 +79,16 @@ export default function HomePage() {
             >
               <div className={`absolute -inset-2 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition duration-500 ${
                 theme === 'dark'
-                  ? 'bg-gradient-to-r from-blue-900/40 via-blue-800/30 to-cyan-900/40'
-                  : 'bg-gradient-to-r from-blue-400/20 via-blue-300/20 to-cyan-400/20'
+                  ? 'bg-gradient-to-r from-blue-900/40 via-blue-800/30 to-blue-700/40'
+                  : 'bg-gradient-to-r from-blue-400/20 via-blue-300/20 to-blue-200/20'
               }`} />
               <div className={`relative px-8 py-4 rounded-2xl border-2 ${
                 theme === 'dark'
-                  ? 'bg-gradient-to-br from-[#000510] to-[#00080f] border-blue-900/40'
+                  ? 'bg-gradient-to-br from-[#001a3d] to-[#001429] border-blue-900/40'
                   : 'bg-gradient-to-br from-white to-blue-50 border-blue-400/40'
               }`}>
                 <h1 className="text-4xl font-black tracking-tight">
-                  <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
                     TODO
                   </span>
                   <span className={`ml-3 text-3xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>AI</span>
@@ -115,7 +111,7 @@ export default function HomePage() {
               >
                 <div className={`absolute inset-0 transition-all border-2 rounded-2xl ${
                   theme === 'dark'
-                    ? 'bg-[#00080f]/60 group-hover:bg-[#000c15]/80 border-blue-900/40 group-hover:border-blue-700/60'
+                    ? 'bg-[#001a3d]/60 group-hover:bg-[#002451]/80 border-blue-900/40 group-hover:border-blue-700/60'
                     : 'bg-white/60 group-hover:bg-blue-50/80 border-blue-300/40 group-hover:border-blue-500/60'
                 }`} />
                 <span className="relative">Sign In</span>
@@ -166,7 +162,7 @@ export default function HomePage() {
               }`} />
               <div className={`relative px-8 py-3 border-2 rounded-full ${
                 theme === 'dark'
-                  ? 'bg-gradient-to-r from-[#000510] to-[#00050f] border-blue-900/50'
+                  ? 'bg-gradient-to-r from-[#001a3d] to-[#001429] border-blue-900/50'
                   : 'bg-gradient-to-r from-white to-blue-50 border-blue-400/50'
               }`}>
                 <span className={`font-black text-base tracking-widest uppercase ${
@@ -190,10 +186,10 @@ export default function HomePage() {
               <div className="relative inline-block mt-3">
                 <div className={`absolute inset-0 blur-3xl ${
                   theme === 'dark'
-                    ? 'bg-gradient-to-r from-blue-500/30 via-blue-400/30 to-cyan-500/30'
-                    : 'bg-gradient-to-r from-blue-400/20 via-blue-300/20 to-cyan-400/20'
+                    ? 'bg-gradient-to-r from-blue-500/30 via-blue-400/30 to-blue-300/30'
+                    : 'bg-gradient-to-r from-blue-400/20 via-blue-300/20 to-blue-200/20'
                 }`} />
-                <span className="relative bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">
+                <span className="relative bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent">
                   Powered by AI
                 </span>
               </div>
@@ -212,7 +208,7 @@ export default function HomePage() {
             Experience <span className={`font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>intelligent task management</span> with{' '}
             <span className={`font-bold ${theme === 'dark' ? 'text-blue-200' : 'text-blue-700'}`}>AI chat assistant</span>,{' '}
             <span className={`font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>voice commands</span>, and{' '}
-            <span className={`font-bold ${theme === 'dark' ? 'text-cyan-300' : 'text-cyan-600'}`}>smart automation</span>
+            <span className={`font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'}`}>smart automation</span>
           </motion.p>
 
           {/* CTA Button */}
@@ -293,7 +289,7 @@ export default function HomePage() {
                 }`} />
                 <div className={`relative p-10 rounded-3xl border-2 backdrop-blur-2xl transition-all duration-500 ${
                   theme === 'dark'
-                    ? 'bg-gradient-to-br from-[#00080f]/70 to-[#000510]/70 border-blue-900/30 group-hover:border-blue-800/60'
+                    ? 'bg-gradient-to-br from-[#001a3d]/70 to-[#001429]/70 border-blue-900/30 group-hover:border-blue-800/60'
                     : 'bg-gradient-to-br from-white/70 to-blue-50/70 border-blue-300/30 group-hover:border-blue-500/60'
                 }`}>
                   <div className={`mb-6 group-hover:scale-110 transition-all duration-500 ${
@@ -317,19 +313,15 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className={`relative z-10 border-t backdrop-blur-2xl py-12 mt-32 ${
-        theme === 'dark'
-          ? 'border-[#0a1929]/50 bg-black/70'
-          : 'border-blue-200/50 bg-white/70'
-      }`}>
+      <footer className="relative z-10 border-t backdrop-blur-2xl py-12 mt-32 border-gray-800 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className={`text-xl mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-gray-700'}`}>
+          <p className={`text-xl mb-2 ${theme === 'dark' ? 'text-blue-200' : 'text-gray-300'}`}>
             Build with D/O :{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent font-black text-2xl">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-400 to-orange-300 bg-clip-text text-transparent font-black text-2xl">
               Syed Rashid Ali
             </span>
           </p>
-          <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-blue-400/60' : 'text-blue-600/60'}`}>
+          <p className={`text-sm font-semibold ${theme === 'dark' ? 'text-blue-400/60' : 'text-gray-400/60'}`}>
             Phase III • AI-Powered Task Management
           </p>
         </div>

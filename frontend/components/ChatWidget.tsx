@@ -348,7 +348,7 @@ export default function ChatWidget() {
                           transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
                         />
                         <motion.div
-                          className={`w-2.5 h-2.5 rounded-full ${theme === 'dark' ? 'bg-cyan-400' : 'bg-cyan-500'}`}
+                          className={`w-2.5 h-2.5 rounded-full ${theme === 'dark' ? 'bg-blue-400' : 'bg-blue-500'}`}
                           animate={{
                             scale: [1, 1.8, 1],
                             opacity: [0.4, 1, 0.4],
